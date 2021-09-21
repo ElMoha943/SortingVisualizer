@@ -13,7 +13,6 @@ namespace SortingVisualizer
 {
     public partial class Form1 : Form
     {
-        int amount = 20;
         int[] dt = new int[20];
         Random rand = new Random();
 
@@ -24,11 +23,15 @@ namespace SortingVisualizer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < amount; i++)
+            Scramble();
+        }
+
+        private void Scramble()
+        {
+            for (int i = 0; i < dt.Length; i++)
                 dt[i] = rand.Next();
             chart1.Series[0].Points.DataBindY(dt);
         }
-
         private void bubbleSort()
         {
             int aux;
@@ -121,27 +124,47 @@ namespace SortingVisualizer
         {
             chart1.Series[0].Points.DataBindY(dt);
             chart1.Update();
-            System.Threading.Thread.Sleep(5000 / dt.Length); //DELAY PARA QUE SEA MAS FACIL DE VISUALIZAR
+            System.Threading.Thread.Sleep(4000 / dt.Length); //DELAY PARA QUE SEA MAS FACIL DE VISUALIZAR
         }
 
         private void btnBubble_Click(object sender, EventArgs e)
         {
+            labelStatus.Visible = true;
+            labelStatus.Text = "Ordenamiento en Progreso";
+            labelStatus.ForeColor = Color.Red;
             bubbleSort();
+            labelStatus.Text = "Ordenamiento Completado";
+            labelStatus.ForeColor = Color.White;
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
+            labelStatus.Visible = true;
+            labelStatus.Text = "Ordenamiento en Progreso";
+            labelStatus.ForeColor = Color.Red;
             insertionSort();
+            labelStatus.Text = "Ordenamiento Completado";
+            labelStatus.ForeColor = Color.White;
         }
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
+            labelStatus.Visible = true;
+            labelStatus.Text = "Ordenamiento en Progreso";
+            labelStatus.ForeColor = Color.Red;
             selectionSort();
+            labelStatus.Text = "Ordenamiento Completado";
+            labelStatus.ForeColor = Color.White;
         }
 
         private void btnMerge_Click(object sender, EventArgs e)
         {
+            labelStatus.Visible = true;
+            labelStatus.Text = "Ordenamiento en Progreso";
+            labelStatus.ForeColor = Color.Red;
             SortMerge(dt, 0, dt.Length - 1);
+            labelStatus.Text = "Ordenamiento Completado";
+            labelStatus.ForeColor = Color.White;
         }
 
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -162,6 +185,11 @@ namespace SortingVisualizer
         private void iconPictureBox1_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void rjButton1_Click(object sender, EventArgs e)
+        {
+            Scramble();
         }
     }
 }
